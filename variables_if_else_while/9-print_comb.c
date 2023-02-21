@@ -16,7 +16,7 @@ int main(void)
 
 	for (i = 0; i < 10; i++)
 	{
-		num = i + '0'; 
+		num = i + '0';
 		putchar(num);
 		if (num == '9')
 			break;
