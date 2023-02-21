@@ -16,7 +16,7 @@ int main(void)
 
 	for (i = 0; i < 10; i++)
 	{
-		for (j = i; i < 10)
+		for (j = i; j < 10; j++)
 		{
 			num_left = i + '0';
 			num_right = j + '0';
