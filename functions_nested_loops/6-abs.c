@@ -11,7 +11,7 @@
  */
 int _abs(int n)
 {
-	short abs;
+	int abs;
 
 	if (n < 0)
 	{
