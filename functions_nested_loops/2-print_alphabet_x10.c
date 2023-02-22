@@ -2,7 +2,7 @@
 
 
 /**
- * print_alphabet - function
+ * print_alphabet_x10 - function
  *
  * Prints 10 times all lowercase alphabet
  *
@@ -13,7 +13,7 @@ void print_alphabet_x10(void)
 {
 	int i;
 	int j;
-	
+
 	j = 0;
 	while (j < 10)
 	{
