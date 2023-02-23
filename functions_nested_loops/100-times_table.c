@@ -26,7 +26,7 @@ void print_times_table(int n)
 						printf("%d,  ", increment);
 					else if (increment + i > 99)
 						printf("%d, ", increment);
-					else 
+					else
 						printf("%d,   ", increment);
 				}
 				else
