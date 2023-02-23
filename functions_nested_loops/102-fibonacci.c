@@ -20,9 +20,10 @@ int  main(void)
 		first = second;
 		second = third;
 		third = first + second;
-		printf("%ld, ", third);
 		if (i == 49)
 			printf("%ld", third);
+		else
+			printf("%ld, ", third);
 		i++;
 	}
 
