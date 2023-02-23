@@ -11,7 +11,8 @@
  */
 int  main(void)
 {
-	int i, first = 0, second = 0, third = 1;
+	int i;
+	long first = 0, second = 0, third = 1;
 
 	i = 0;
 	while (i < 50)
@@ -19,9 +20,9 @@ int  main(void)
 		first = second;
 		second = third;
 		third = first + second;
-		printf("%d, ", third);
+		printf("%ld, ", third);
 		if (i == 49)
-			printf("%d", third);
+			printf("%ld", third);
 		i++;
 	}
 
