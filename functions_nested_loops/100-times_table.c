@@ -12,7 +12,7 @@ void print_times_table(int n)
 {
 	int i = 0, j, increment;
 
-	if (n > 0 && n < 16)
+	if (n >= 0 && n < 16)
 	{
 		while (i <= n)
 		{
