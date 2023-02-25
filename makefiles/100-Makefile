@@ -5,7 +5,7 @@ NAME = school
 CFLAGS = -Wall -Werror -Wextra -pedantic
 DEPS = m.h
 
-all: $(OBJ) $(DEPS)
+all: $(DEPS) $(OBJ)
 	$(CC) $(OBJ) -o $(NAME)
 
 .PHONY: clean fclean oclean re
