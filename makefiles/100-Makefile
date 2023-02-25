@@ -3,9 +3,9 @@ SRC = main.c school.c
 OBJ = $(SRC:.c=.o)
 NAME = school
 CFLAGS = -Wall -Werror -Wextra -pedantic
-DEPS = $(OBJ:.o=.d)
+DEPS = m.h
 
-all: $(OBJ)
+all: $(OBJ) $(DEPS)
 	$(CC) $(OBJ) -o $(NAME)
 
 .PHONY: clean fclean oclean re
@@ -18,5 +18,3 @@ oclean:
 	$(RM) -f $(OBJ) 
 
 re: oclean all
-
--include $(DEPS)
