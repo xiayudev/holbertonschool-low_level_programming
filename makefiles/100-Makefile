@@ -3,6 +3,7 @@ SRC = main.c school.c
 OBJ = $(SRC:.c=.o)
 NAME = school
 CFLAGS = -Wall -Werror -Wextra -pedantic
+DEPS = $(OBJ:.o=.d)
 
 all: $(OBJ)
 	$(CC) $(OBJ) -o $(NAME)
@@ -18,4 +19,4 @@ oclean:
 
 re: oclean all
 
--include m.h 
+-include $(DEPS)
