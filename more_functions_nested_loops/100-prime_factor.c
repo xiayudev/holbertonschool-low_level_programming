@@ -17,7 +17,8 @@ int main(void)
 		{
 			number /= i;
 		}
-		i++;
+		else
+			i++;
 	}
 	printf("%ld\n", i);
 
