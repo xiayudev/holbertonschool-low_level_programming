@@ -31,6 +31,7 @@ void print_number(int n)
 	if (n < 0)
 	{
 		unsigned int num = (unsigned int) n * -1;
+
 		_putchar('-');
 		recursive_print(num);
 	}
