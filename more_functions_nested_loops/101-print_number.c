@@ -1,5 +1,5 @@
 #include "main.h"
-
+#include <stdio.h>
 /**
  * recursive_print - function
  * @n: Integer
@@ -8,7 +8,7 @@
  * Return: Void
  *
  */
-void recursive_print(int n)
+void recursive_print(unsigned int n)
 {
 
 	if (n / 10)
@@ -30,9 +30,9 @@ void print_number(int n)
 {
 	if (n < 0)
 	{
-		n *= -1;
+		unsigned int num = (unsigned int) n * -1;
 		_putchar('-');
-		recursive_print(n);
+		recursive_print(num);
 	}
 	else
 		recursive_print(n);
