@@ -8,25 +8,18 @@
  */
 int main(void)
 {
-	long i, j, largest = 0;
-	int is_prime = 1; 
+	long i = 2;
 	long number = 612852475143;
 
-	for (i = 2; i <= number; i++)
+	while (number > i)
 	{
 		if (number % i == 0)
 		{
-			is_prime = 1;
-			for (j = 2; j < i; j++)
-			{
-				if (i % j == 0)
-					is_prime = 0;
-			}
-			if (is_prime == 1)
-				largest =  i;
+			number /= i;
 		}
+		i++;
 	}
-	printf("%ld\n", largest);
+	printf("%ld\n", i);
 
 	return (0);
 }
