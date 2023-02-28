@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdio.h>
 
 /**
  * print_rev - function
@@ -11,17 +12,19 @@
 void print_rev(char *s)
 {
 	char *init;
+	int count;
 
 	init = s;
-
 	while (*s != '\0')
 	{
 		s++;
+		count++;
 	}
-	while (s >= init)
+	while (s != init)
 	{
-		_putchar(*s);
 		s--;
+		count--;
+		_putchar(*s);
 	}
 	_putchar(10);
 }
