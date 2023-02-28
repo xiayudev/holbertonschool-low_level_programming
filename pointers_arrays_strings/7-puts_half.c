@@ -11,7 +11,7 @@
 void puts_half(char *str)
 {
 	int i;
-	char *swap = NULL;
+	char *swap;
 
 	swap = str;
 
