@@ -24,13 +24,9 @@ void rev_string(char *s)
 	}
 
 	/*Stop at the middle*/
-	if (j % 2 == 0)
-		j = (j / 2) - 1;
-	else
-		j /= 2;
-
 	i = 0;
-	while (i < j)
+
+	while (i < j / 2)
 	{
 		s--;
 		temp = *s;
