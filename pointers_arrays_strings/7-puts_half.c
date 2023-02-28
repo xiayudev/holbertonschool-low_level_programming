@@ -11,7 +11,8 @@
 void puts_half(char *str)
 {
 	int i;
-	char *swap;
+	char *swap = NULL;
+
 	swap = str;
 
 	/*Size of the string*/
@@ -22,9 +23,8 @@ void puts_half(char *str)
 		i++;
 	}
 
-	/*From middle to end*/
 	if (i % 2 != 0)
-		i = (i - 1) / 2;
+		i = ((i - 1) / 2) + 1; /*The LAST i elements*/
 	else
 		i /= 2;
 
