@@ -12,8 +12,8 @@
 int _atoi(char *s)
 {
 	int signo;
-	int number = 0;
-	
+	unsigned int number = 0;
+
 	signo = 0;
 	while (*s != '\0')
 	{
