@@ -1,8 +1,7 @@
 #include "main.h"
-#include <stdio.h>
 
 /**
- * strcat - function
+ * _strcat - function
  * @dest: The character to be evaluated
  * @src: The character to be evaluated
  * Concatenates two strings
