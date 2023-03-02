@@ -26,7 +26,7 @@ int compare(char *s1, char *s2)
 		}
 		else
 		{
-			result = *(s1 + i) - *(s2 - i);
+			result = *(s1 + i) - *(s2 + i);
 			return (result);
 		}
 		i++;
