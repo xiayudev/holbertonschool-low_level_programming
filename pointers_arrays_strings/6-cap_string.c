@@ -18,6 +18,8 @@ char *cap_string(char *str)
 	{
 		if (*(str + i) >= 'a' && *(str + i) <= 'z')
 		{
+			if (i == 0)
+				*(str + i) -= 32;
 			j = 0;
 			while (*(sep + j))
 			{
