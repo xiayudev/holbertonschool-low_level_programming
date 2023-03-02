@@ -22,14 +22,7 @@ char *leet(char *str)
 		while (*(lower + j))
 		{
 			if (*(str + i) == *(lower + j) || (*(str + i) == *(upper + j)))
-			{
 				*(str + i) = *(digit + j);
-			}
-			else
-			{
-				j++;
-				continue;
-			}
 			j++;
 		}
 		i++;
