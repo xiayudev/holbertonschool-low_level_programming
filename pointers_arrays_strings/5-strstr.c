@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stddef.h>
 
 /**
  * _strstr - function
@@ -11,13 +12,11 @@
  */
 char *_strstr(char *haystack, char *needle)
 {
-	int i, j, len_needle, coincidence = 1;
+	int i, j, coincidence = 1;
 	char *p_temp;
 
-
-	len_needle = 0;
-	while (*(needle + len_needle))
-		len_needle++;
+	if (*needle == '\0')
+		return (haystack);
 
 	i = 0;
 	while (*(haystack + i))
@@ -47,5 +46,5 @@ char *_strstr(char *haystack, char *needle)
 		}
 		i++;
 	}
-	return (0);
+	return (NULL);
 }
