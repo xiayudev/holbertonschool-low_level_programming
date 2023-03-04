@@ -25,5 +25,12 @@ char *_strchr(char *s, char c)
 		}
 		i++;
 	}
+
+	/*For character nul*/
+	if (*(s + i) == c)
+	{
+		p_temp = s + i;
+		return (p_temp);
+	}
 	return (NULL);
 }
