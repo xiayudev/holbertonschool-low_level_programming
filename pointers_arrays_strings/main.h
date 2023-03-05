@@ -59,4 +59,6 @@ void print_diagsums(int *a, int size);
 
 char *rot13(char *);
 
+void print_number(int n);
+
 #endif
