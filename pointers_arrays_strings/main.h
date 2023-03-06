@@ -61,4 +61,6 @@ char *rot13(char *);
 
 void print_number(int n);
 
+void print_buffer(char *b, int size);
+
 #endif
