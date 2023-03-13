@@ -7,7 +7,7 @@
  * @c: The character to be evaluated
  * Creates an array of char dynamically
  *
- * Return: Pointer to the array 
+ * Return: Pointer to the array
  *
  */
 char *create_array(unsigned int size, char c)
