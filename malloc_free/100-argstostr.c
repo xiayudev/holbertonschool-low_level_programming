@@ -25,6 +25,7 @@ char *argstostr(int ac, char **av)
 		j = 0;
 		while (*(*(av + i) + j))
 			j++;
+		j++;
 		total_size += j;
 		i++;
 	}
