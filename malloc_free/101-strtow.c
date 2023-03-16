@@ -13,20 +13,29 @@
  */
 int len_str(char *str)
 {
-	int i, num_words = 0, is_char = 0;
+	int i, j, m, num_words = 0, is_char = 0;
 
 	i = 0;
 	while (*(str + i))
 	{
 		is_char = 0;
-		if (*(str + i) == ' ')
+		if (*(str + i) != ' ')
 		{
-			if (*(str + i + 1) != ' ' && *(str + i + 1) != '\0')
+			j = 0;
+			m = i;
+			while (*(str + m) != ' ' && *(str + m) != '\0')
+			{
 				is_char = 1;
+				m++;
+				j++;
+			}
+			i += j;
+
+			if (is_char == 1)
+				num_words += 1;
+			continue;
 		}
 
-		if (is_char == 1)
-			num_words += 1;
 		i++;
 	}
 	return (num_words);
@@ -94,7 +103,7 @@ char **strtow(char *str)
 	char **new_str;
 
 	num_words = len_str(str);
-	new_str = malloc(sizeof(char *) * (num_words + 1));
+	new_str = malloc(sizeof(int *) * (num_words + 1));
 
 	if (new_str == NULL || str == NULL || num_words == 0)
 	{
