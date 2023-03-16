@@ -1,7 +1,6 @@
 #include "main.h"
 #include <stdlib.h>
 
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
 /**
  * _realloc - function
  * @ptr: The elements of the array
@@ -14,7 +13,7 @@
  */
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
-	unsigned int i;
+	unsigned int i, min;
 	void *arr;
 
 	if (new_size == old_size)
@@ -33,14 +32,16 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 	}
 	if (new_size > old_size)
 	{
+		min = (old_size < new_size) ? old_size : new_size;
 		arr = malloc(new_size);
 		if (!arr)
 			return (NULL);
-		for (i = 0; i < MIN(old_size, new_size); i++)
+		for (i = 0; i < min; i++)
 		{
 			*((char *)arr + i) = *((char *)ptr + i);
 		}
 		*((char *)arr + new_size - 1) = '\0';
+		free(ptr);
 		return (arr);
 	}
 	return (0);
