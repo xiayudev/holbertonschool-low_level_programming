@@ -36,22 +36,12 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 		arr = malloc(new_size);
 		if (!arr)
 			return (NULL);
-		for (i = 0; i < old_size; i++)
+		for (i = 0; i < MIN(old_size, new_size); i++)
 		{
 			*((char *)arr + i) = *((char *)ptr + i);
 		}
 		*((char *)arr + new_size - 1) = '\0';
 		return (arr);
 	}
-	arr = malloc(new_size);
-	if (!arr)
-		return (NULL);
-	*((char *)arr + new_size - 1) = '\0';
-	i = 0;
-	while (i < MIN(old_size, new_size))
-	{
-		*((char *)arr + i) = *((char *)ptr + i);
-		i++;
-	}
-	return (arr);
+	return (0);
 }
