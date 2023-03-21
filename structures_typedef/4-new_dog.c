@@ -1,5 +1,6 @@
 #include "dog.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 /**
  * _strlen - function
@@ -56,6 +57,7 @@ char *_strdup(char *str)
 	return (new_str);
 }
 
+
 /**
  * _strcpy - function
  * @dest: New string copied
@@ -71,13 +73,12 @@ char *_strcpy(char *dest, char *src)
 
 	i = 0;
 	/*How to take nul character*/
-	while (*src != '\0')
+	while (*(src + i))
 	{
-		*(dest + i) = *src;
-		src++;
+		*(dest + i) = *(src + i);
 		i++;
 	}
-	*(dest + i) = *src;
+	*(dest + i) = *(src + i);
 	return (dest);
 }
 
@@ -94,6 +95,7 @@ char *_strcpy(char *dest, char *src)
  */
 dog_t *new_dog(char *name, float age, char *owner)
 {
+	int i;
 	char *c_name, *c_owner;
 	dog_t *my_dog;
 
@@ -101,8 +103,30 @@ dog_t *new_dog(char *name, float age, char *owner)
 	if (!my_dog)
 		return (NULL);
 
-	c_name = _strdup(name);
-	c_owner = _strdup(owner);
+	c_name = malloc(_strlen(name) + 1);
+	c_owner = malloc(_strlen(owner) + 1);
+
+	if (!c_name || !c_owner)
+	{
+		free(c_name);
+		free(c_owner);
+		free(my_dog);
+		return (NULL);
+	}
+	i = 0;
+	while (*(name + i))
+	{
+		*(c_name + i) = *(name + i);
+		i++;
+	}
+	*(c_name + i) = '\0';
+	i = 0;
+	while (*(owner + i))
+	{
+		*(c_owner + i) = *(owner + i);
+		i++;
+	}
+	*(c_owner + i) = '\0';
 
 	my_dog->name = c_name;
 	my_dog->age = age;
