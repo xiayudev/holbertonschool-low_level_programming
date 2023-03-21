@@ -1,12 +1,11 @@
 #include "dog.h"
-#include <stdlib.h>
 
 /**
  * init_dog - function
- * @d: The size of the array
- * @name: The character to be evaluated
- * @age: The character to be evaluated
- * @owner: The character to be evaluated
+ * @d: Pointer to the structure dog
+ * @name: Name of the dog
+ * @age: Age of the dog
+ * @owner: The owner of the dog
  *
  * Initialize a struct
  *

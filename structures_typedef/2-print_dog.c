@@ -4,7 +4,7 @@
 
 /**
  * print_dog - function
- * @d: The size of the array
+ * @d: Pointer to the structure dog
  *
  * Initialize a struct
  *
