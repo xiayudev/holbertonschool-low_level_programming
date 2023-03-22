@@ -10,9 +10,8 @@
  * Return: Pointer to the correspond function
  *
  */
-my_func_def_t get_op_func(char *s)
+int (*get_op_func(char *s))(int, int)
 {
-	int i;
 	op_t ops[] = {
 		{"+", op_add},
 		{"-", op_sub},
@@ -21,15 +20,16 @@ my_func_def_t get_op_func(char *s)
 		{"%", op_mod},
 		{NULL, NULL}
 	};
+	int i;
 
 	i = 0;
 	while ((ops + i))
 	{
 		if (*((ops + i)->op) == *s)
 		{
-			my_func_def_t func_ptr = *(ops + i)->f;
+			int (*my_func_ptr)(int, int) = *(ops + i)->f;
 
-			return (func_ptr);
+			return (my_func_ptr);
 		}
 		i++;
 	}
