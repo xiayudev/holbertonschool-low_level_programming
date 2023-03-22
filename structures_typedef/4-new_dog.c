@@ -23,66 +23,6 @@ int _strlen(char *s)
 }
 
 /**
- * _strdup - function
- * @str: The string to be copied
- *
- * Duplicate a string
- *
- * Return: The pointer to the duplicated string
- *
- */
-
-char *_strdup(char *str)
-{
-	int i;
-	char *new_str;
-
-	if (str == NULL)
-		return (NULL);
-	i = 0;
-	while (*(str + i))
-		i++;
-	new_str = malloc(sizeof(char) * (i + 1));
-
-	if (new_str == NULL)
-		return (NULL);
-
-	i = 0;
-	while (*(str + i))
-	{
-		*(new_str + i) = *(str + i);
-		i++;
-	}
-	*(new_str + i) = *(str + i);
-	return (new_str);
-}
-
-
-/**
- * _strcpy - function
- * @dest: New string copied
- * @src: The string to be copied
- * Copy an string to another variable
- *
- * Return: Pointer to dest
- *
- */
-char *_strcpy(char *dest, char *src)
-{
-	int i;
-
-	i = 0;
-	/*How to take nul character*/
-	while (*(src + i))
-	{
-		*(dest + i) = *(src + i);
-		i++;
-	}
-	*(dest + i) = *(src + i);
-	return (dest);
-}
-
-/**
  * new_dog - function
  * @name: The name of the dog
  * @age: The dog's age
