@@ -44,7 +44,7 @@ void print_strings(const char *separator, const unsigned int n, ...)
 				if (i == 0)
 					printf("%p", p_temp);
 				else
-					printf("%s%p",separator, NULL);
+					printf("%s%p", separator, NULL);
 		}
 		i++;
 	}
