@@ -2,7 +2,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#define PRINTT(i) ((i) == 0 ? printf("%s", "") : printf(", "))
+#define PRINTT(i) ((i) == 1 ? printf("%s", "") : printf(", "))
 /**
  * character - function
  * @ptr: The list of arguments passed
@@ -78,7 +78,7 @@ void string(va_list ptr)
  */
 void print_all(const char * const format, ...)
 {
-	int i, j;
+	int i, j, flag = 1;
 	va_list ptr;
 	op_t ops[] = {
 		{"c", character},
@@ -90,15 +90,16 @@ void print_all(const char * const format, ...)
 
 	va_start(ptr, format);
 	i = 0;
-	while (*(format + i))
+	while (format && *(format + i))
 	{
 		j = 0;
-		while ((ops + j))
+		while ((ops + j)->c)
 		{
 			if (*((ops + j)->c) == *(format + i))
 			{
-				PRINTT(i);
+				PRINTT(flag);
 				(ops + j)->f(ptr);
+				flag = 0;
 				break;
 			}
 			j++;
