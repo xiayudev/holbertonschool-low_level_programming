@@ -11,9 +11,12 @@
  * Return: Void
  *
  */
-void character(va_list ptr)
+void character(va_list ptr, int i)
 {
-	printf("%c, ", (char)va_arg(ptr, int));
+	if (i == 0)
+		printf("%c", va_arg(ptr, int));
+	else
+		printf(", %c", va_arg(ptr, int));
 }
 
 /**
@@ -25,9 +28,12 @@ void character(va_list ptr)
  * Return: Void
  *
  */
-void integer(va_list ptr)
+void integer(va_list ptr, int i)
 {
-	printf("%d, ", va_arg(ptr, int));
+	if (i == 0)
+		printf("%d", va_arg(ptr, int));
+	else
+		printf(", %d", va_arg(ptr, int));
 }
 
 /**
@@ -39,9 +45,12 @@ void integer(va_list ptr)
  * Return: Void
  *
  */
-void floating(va_list ptr)
+void floating(va_list ptr, int i)
 {
-	printf("%d, ", va_arg(ptr, int));
+	if (i == 0)
+		printf("%f", va_arg(ptr, double));
+	else
+		printf(", %f", va_arg(ptr, double));
 }
 
 /**
@@ -53,9 +62,25 @@ void floating(va_list ptr)
  * Return: Void
  *
  */
-void string(va_list ptr)
+void string(va_list ptr, int i)
 {
-	printf("%s", va_arg(ptr, char*));
+	char *s;
+
+	s = va_arg(ptr, char*);
+	if (s)
+	{
+		if (i == 0)
+			printf("%s", s);
+		else
+			printf(", %s", s);
+	}
+	else
+	{
+		if (i == 0)
+			printf("%p", NULL);
+		else
+			printf(", %p", NULL);
+	}
 }
 
 /**
@@ -96,7 +121,7 @@ void print_all(const char * const format, ...)
 		{
 			if (*((ops + j)->c) == *(format + i))
 			{
-				(ops + j)->f(ptr);
+				(ops + j)->f(ptr, i);
 				break;
 			}
 			j++;
