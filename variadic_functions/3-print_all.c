@@ -2,6 +2,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+#define PRINT(i) ((i) == 0 ? printf("%s", "") : printf(", "))
 /**
  * character - function
  * @ptr: The list of arguments passed
@@ -11,12 +12,9 @@
  * Return: Void
  *
  */
-void character(va_list ptr, int i)
+void character(va_list ptr)
 {
-	if (i == 0)
-		printf("%c", va_arg(ptr, int));
-	else
-		printf(", %c", va_arg(ptr, int));
+	printf("%c", va_arg(ptr, int));
 }
 
 /**
@@ -28,12 +26,9 @@ void character(va_list ptr, int i)
  * Return: Void
  *
  */
-void integer(va_list ptr, int i)
+void integer(va_list ptr)
 {
-	if (i == 0)
-		printf("%d", va_arg(ptr, int));
-	else
-		printf(", %d", va_arg(ptr, int));
+	printf("%d", va_arg(ptr, int));
 }
 
 /**
@@ -45,12 +40,9 @@ void integer(va_list ptr, int i)
  * Return: Void
  *
  */
-void floating(va_list ptr, int i)
+void floating(va_list ptr)
 {
-	if (i == 0)
-		printf("%f", va_arg(ptr, double));
-	else
-		printf(", %f", va_arg(ptr, double));
+	printf("%f", va_arg(ptr, double));
 }
 
 /**
@@ -62,25 +54,17 @@ void floating(va_list ptr, int i)
  * Return: Void
  *
  */
-void string(va_list ptr, int i)
+void string(va_list ptr)
 {
 	char *s;
 
 	s = va_arg(ptr, char*);
-	if (s)
+	if (!s)
 	{
-		if (i == 0)
-			printf("%s", s);
-		else
-			printf(", %s", s);
+		printf("%p", NULL);
+		return;
 	}
-	else
-	{
-		if (i == 0)
-			printf("%p", NULL);
-		else
-			printf(", %p", NULL);
-	}
+	printf("%s", s);
 }
 
 /**
@@ -108,20 +92,13 @@ void print_all(const char * const format, ...)
 	i = 0;
 	while (*(format + i))
 	{
-		if (*(format + i) != 'c'
-				&& *(format + i) != 'i'
-				&& *(format + i) != 'f'
-				&& *(format + i) != 's')
-		{
-			i++;
-			continue;
-		}
 		j = 0;
 		while ((ops + j))
 		{
 			if (*((ops + j)->c) == *(format + i))
 			{
-				(ops + j)->f(ptr, i);
+				PRINT(i);
+				(ops + j)->f(ptr);
 				break;
 			}
 			j++;
