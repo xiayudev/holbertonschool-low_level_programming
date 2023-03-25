@@ -12,7 +12,7 @@
 struct op
 {
 	char *c;
-	void (*f)(va_list, int);
+	void (*f)(va_list);
 };
 
 /**

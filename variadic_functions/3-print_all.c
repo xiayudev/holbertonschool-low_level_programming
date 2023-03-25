@@ -2,7 +2,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#define PRINT(i) ((i) == 0 ? printf("%s", "") : printf(", "))
+#define PRINTT(i) ((i) == 0 ? printf("%s", "") : printf(", "))
 /**
  * character - function
  * @ptr: The list of arguments passed
@@ -97,7 +97,7 @@ void print_all(const char * const format, ...)
 		{
 			if (*((ops + j)->c) == *(format + i))
 			{
-				PRINT(i);
+				PRINTT(i);
 				(ops + j)->f(ptr);
 				break;
 			}
