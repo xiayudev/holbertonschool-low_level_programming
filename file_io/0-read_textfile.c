@@ -23,7 +23,7 @@ ssize_t read_textfile(const char *filename, size_t letters)
 
 	if (!filename)
 		return (0);
-	fd = open(filename, O_RDONLY, S_IRUSR);
+	fd = open(filename, O_RDONLY, S_IRUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
 		return (0);
 
@@ -44,7 +44,7 @@ ssize_t read_textfile(const char *filename, size_t letters)
 	if (bytes == -1)
 		return (0);
 
-	wr = write(1, buff, bytes);
+	wr = write(STDOUT_FILENO, buff, bytes);
 	if (wr == -1 || wr != bytes)
 		return (0);
 	close(fd);
