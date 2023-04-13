@@ -21,8 +21,6 @@ int _strlen(char *s)
 {
 	int length;
 
-	if (!s)
-		return (0);
 	length = 0;
 	while (*(s + length))
 	{
@@ -134,13 +132,7 @@ void set_string(int counter1, char **grid, char *argv[],
 			"Error: Can't read from file %s\n", argv[1]);
 			exit(98);
 		}
-		i++;
-	}
-
-	i = 0;
-	while (i < counter1)
-	{
-		wr = write(fdto, grid[i], _strlen(grid[i]));
+		wr = write(fdto, grid[i], SIZE_OF_BUFF);
 		if (wr == -1)
 		{
 			dprintf(STDERR_FILENO, "Error: Can't write to %s\n",
@@ -151,13 +143,12 @@ void set_string(int counter1, char **grid, char *argv[],
 		}
 		i++;
 	}
-
 	cl1 = close(fdto);
 	cl2 = close(fdfrom);
 	if (cl1 == -1 || cl2 == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %ld\n",
-			(!cl1) ? fdto : fdfrom);
+			(cl1 == -1) ? fdto : fdfrom);
 		exit(100);
 	}
 }
@@ -175,8 +166,8 @@ void set_string(int counter1, char **grid, char *argv[],
 int main(int argc, char *argv[])
 {
 	ssize_t fdto, fdfrom;
-	int len = 0, counter1, counter2, i = 1;
 	char **grid, c[100] = {0};
+	int counter1, counter2, i = 1, len = 0;
 
 	if (argc != 3)
 	{
@@ -187,11 +178,11 @@ int main(int argc, char *argv[])
 	if (fdfrom == -1)
 	{
 	dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
-		close(fdfrom);
 		exit(98);
 	}
 	fdto = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC);
-	fchmod(fdto, S_IRUSR | S_IWUSR | S_IROTH | S_IWGRP | S_IRGRP);
+	if (access(argv[2], F_OK) != 0)
+		fchmod(fdto, S_IRUSR | S_IWUSR | S_IROTH | S_IWGRP | S_IRGRP);
 	if (fdto == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
@@ -206,11 +197,11 @@ int main(int argc, char *argv[])
 	fdfrom = open(argv[1], O_RDONLY);
 	counter1 = len / SIZE_OF_BUFF;
 	counter2 = len % SIZE_OF_BUFF;
-	if (counter2)
+	if (counter2 && counter1 > 0)
 		counter1++;
 	grid = alloc_grid(SIZE_OF_BUFF, counter1);
 	if (!grid)
-		return (-1);
+		return (0);
 	set_string(counter1, grid, argv, fdto, fdfrom);
 	free_grid(grid, counter1);
 	return (0);
