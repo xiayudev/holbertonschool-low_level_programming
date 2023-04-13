@@ -173,7 +173,7 @@ int close_file(ssize_t fdto, ssize_t fdfrom, char *argv[])
 	fdfrom = open(argv[1], O_RDONLY);
 	counter1 = len / SIZE_OF_BUFF;
 	counter2 = len % SIZE_OF_BUFF;
-	if (counter2 && counter1 > 0)
+	if (counter2)
 		counter1++;
 	grid = alloc_grid(SIZE_OF_BUFF + 1, counter1);
 	if (!grid)
