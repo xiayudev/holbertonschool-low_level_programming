@@ -149,7 +149,6 @@ void set_string(int counter1, char **grid, char *argv[],
 			close(fdfrom);
 			exit(99);
 		}
-
 		i++;
 	}
 
@@ -181,8 +180,15 @@ int main(int argc, char *argv[])
 
 	if (argc != 3)
 	{
-		dprintf(STDERR_FILENO, "Usage: cp %s %s\n", argv[1], argv[2]);
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
+	}
+	fdfrom = open(argv[1], O_RDONLY);
+	if (fdfrom == -1)
+	{
+	dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+		close(fdfrom);
+		exit(98);
 	}
 	fdto = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC);
 	fchmod(fdto, S_IRUSR | S_IWUSR | S_IROTH | S_IWGRP | S_IRGRP);
@@ -191,16 +197,9 @@ int main(int argc, char *argv[])
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
 		exit(99);
 	}
-	fdfrom = open(argv[1], O_RDONLY);
-	if (fdfrom == -1)
-	{
-	dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
-		close(fdto);
-		exit(98);
-	}
 	while (i)
 	{
-		i = read(fdfrom, c, 10);
+		i = read(fdfrom, c, 100);
 		len += i;
 	}
 	close(fdfrom);
@@ -209,7 +208,7 @@ int main(int argc, char *argv[])
 	counter2 = len % SIZE_OF_BUFF;
 	if (counter2)
 		counter1++;
-	grid = alloc_grid(SIZE_OF_BUFF + 1, counter1);
+	grid = alloc_grid(SIZE_OF_BUFF, counter1);
 	if (!grid)
 		return (-1);
 	set_string(counter1, grid, argv, fdto, fdfrom);
