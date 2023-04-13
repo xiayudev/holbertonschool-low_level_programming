@@ -9,25 +9,6 @@
 #define SIZE_OF_BUFF 1024
 #define TYPE_ALLOC char
 
-/**
- * _strlen - function
- * @s: The string to be evaluated
- * Swap values of two integers
- *
- * Return: Length of a string
- *
- */
-int _strlen(char *s)
-{
-	int length;
-
-	length = 0;
-	while (*(s + length))
-	{
-		length++;
-	}
-	return (length);
-}
 
 /**
  * alloc_grid - function
@@ -116,11 +97,12 @@ void free_grid(TYPE_ALLOC **grid, int height)
  * Return: Void
  *
  */
-void set_string(int counter1, char **grid, char *argv[],
+int set_string(int counter1, char **grid, char *argv[],
 		ssize_t fdto, ssize_t fdfrom)
 {
-	ssize_t rd, wr, cl1, cl2;
-	int i;
+	ssize_t rd, wr;
+	char *s;
+	int i = 1, length;
 
 	i = 0;
 	while (i < counter1)
@@ -132,7 +114,15 @@ void set_string(int counter1, char **grid, char *argv[],
 			"Error: Can't read from file %s\n", argv[1]);
 			exit(98);
 		}
-		wr = write(fdto, grid[i], SIZE_OF_BUFF);
+		length = 0;
+		s = grid[i];
+		while (*(s + length))
+		{
+			if (!*(s + length + 1) && *(s + length + 2) != '\0')
+				length++;
+			length++;
+		}
+		wr = write(fdto, grid[i], length);
 		if (wr == -1)
 		{
 			dprintf(STDERR_FILENO, "Error: Can't write to %s\n",
@@ -143,6 +133,52 @@ void set_string(int counter1, char **grid, char *argv[],
 		}
 		i++;
 	}
+	return (0);
+}
+
+/**
+ * close_file - function
+ * @fdto: The file to be created or written
+ * @fdfrom: The file with the content
+ * @argv: The arguments
+ *
+ * Make all the operation
+ *
+ * Return: 0 success
+ *
+ */
+int close_file(ssize_t fdto, ssize_t fdfrom, char *argv[])
+{
+	ssize_t cl1, cl2;
+	int i = 1, counter1, counter2, len = 0;
+	char **grid, c[100] = {0};
+
+	while (i)
+	{
+		i = read(fdfrom, c, 100);
+		if (i == -1)
+		{
+			dprintf(STDERR_FILENO,
+			"Error: Can't read from file %s\n", argv[1]);
+			exit(98);
+		}
+		len += i;
+	}
+	if (!len)
+	{
+		close(fdfrom);
+		return (0);
+	}
+	close(fdfrom);
+	fdfrom = open(argv[1], O_RDONLY);
+	counter1 = len / SIZE_OF_BUFF;
+	counter2 = len % SIZE_OF_BUFF;
+	if (counter2 && counter1 > 0)
+		counter1++;
+	grid = alloc_grid(SIZE_OF_BUFF + 1, counter1);
+	if (!grid)
+		return (0);
+	set_string(counter1, grid, argv, fdto, fdfrom);
 	cl1 = close(fdto);
 	cl2 = close(fdfrom);
 	if (cl1 == -1 || cl2 == -1)
@@ -151,6 +187,8 @@ void set_string(int counter1, char **grid, char *argv[],
 			(cl1 == -1) ? fdto : fdfrom);
 		exit(100);
 	}
+	free_grid(grid, counter1);
+	return (0);
 }
 
 /**
@@ -166,8 +204,6 @@ void set_string(int counter1, char **grid, char *argv[],
 int main(int argc, char *argv[])
 {
 	ssize_t fdto, fdfrom;
-	char **grid, c[100] = {0};
-	int counter1, counter2, i = 1, len = 0;
 
 	if (argc != 3)
 	{
@@ -180,29 +216,17 @@ int main(int argc, char *argv[])
 	dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
 		exit(98);
 	}
-	fdto = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC);
-	if (access(argv[2], F_OK) != 0)
+	if (access(argv[2], F_OK) == 0)
+		fdto = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC);
+	else
+	{
+		fdto = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC);
 		fchmod(fdto, S_IRUSR | S_IWUSR | S_IROTH | S_IWGRP | S_IRGRP);
+	}
 	if (fdto == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
 		exit(99);
 	}
-	while (i)
-	{
-		i = read(fdfrom, c, 100);
-		len += i;
-	}
-	close(fdfrom);
-	fdfrom = open(argv[1], O_RDONLY);
-	counter1 = len / SIZE_OF_BUFF;
-	counter2 = len % SIZE_OF_BUFF;
-	if (counter2 && counter1 > 0)
-		counter1++;
-	grid = alloc_grid(SIZE_OF_BUFF, counter1);
-	if (!grid)
-		return (0);
-	set_string(counter1, grid, argv, fdto, fdfrom);
-	free_grid(grid, counter1);
-	return (0);
+	return (close_file(fdto, fdfrom, argv));
 }
