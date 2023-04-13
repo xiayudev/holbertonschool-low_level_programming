@@ -214,5 +214,5 @@ int main(int argc, char *argv[])
 		return (-1);
 	set_string(counter1, grid, argv, fdto, fdfrom);
 	free_grid(grid, counter1);
-	return (1);
+	return (0);
 }
