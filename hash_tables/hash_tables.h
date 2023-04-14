@@ -41,7 +41,7 @@ typedef struct hash_table_s
 typedef struct list_s
 {
 	const char *key;
-	const char *key;
+	const char *value;
 	struct list_s *next;
 } list_t;
 
