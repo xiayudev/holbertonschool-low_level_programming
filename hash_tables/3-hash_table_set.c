@@ -33,11 +33,11 @@ int _strlen(const char *s)
  *
  */
 
-int check_node(hash_node_t *node, const char *key, const char *value)
+int check_node(hash_node_t **node, const char *key, const char *value)
 {
 	hash_node_t *new_node, *temp;
 
-	temp = node;
+	temp = (*node);
 	while (temp != NULL)
 	{
 		if (strcmp(temp->key, key) == 0)
@@ -65,9 +65,9 @@ int check_node(hash_node_t *node, const char *key, const char *value)
 	}
 	strcpy(new_node->key, key);
 	strcpy(new_node->value, value);
-	temp = node;
+	temp = (*node);
 	new_node->next = temp;
-	node = new_node;
+	(*node) = new_node;
 	return (1);
 }
 
@@ -116,6 +116,6 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 		ht->array[index] = new_node;
 	}
 	else
-		check_node(ht->array[index], key, value);
+		check_node(&ht->array[index], key, value);
 	return (1);
 }
