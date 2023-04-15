@@ -14,28 +14,27 @@
 void hash_table_print(const hash_table_t *ht)
 {
 	unsigned long int i, flag = 0;
-	hash_node_t **node, *temp;
+	hash_node_t *temp;
 
 
-	node = ht->array;
-	putchar(123);
 	if (ht)
 	{
+		putchar(123);
 		i = 0;
 		while (i < ht->size)
 		{
-			temp = node[i];
+			temp = ht->array[i];
 			while (temp)
 			{
 				(!flag)
-					? printf("'%s': '%s'", node[i]->key, node[i]->value)
-					: printf(", '%s': '%s'", node[i]->key, node[i]->value);
+					? printf("'%s': '%s'", temp->key, temp->value)
+					: printf(", '%s': '%s'", temp->key, temp->value);
 				temp = temp->next;
 				flag = 1;
 			}
 			i++;
 		}
+		putchar(125);
+		putchar(10);
 	}
-	putchar(125);
-	putchar(10);
 }
