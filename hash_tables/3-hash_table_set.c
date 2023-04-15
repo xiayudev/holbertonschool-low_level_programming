@@ -42,7 +42,8 @@ int check_node(hash_node_t **node, const char *key, const char *value)
 	{
 		if (strcmp(temp->key, key) == 0)
 		{
-			temp->value = (char *)value;
+			free(temp->value);
+			temp->value = strdup(value);
 			return (1);
 		}
 		temp = temp->next;
@@ -87,7 +88,7 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	unsigned long int index;
 	hash_node_t *new_node;
 
-	if (!key || !ht)
+	if (!key || !ht || !value)
 		return (0);
 
 	index = key_index((const unsigned char *)key, ht->size);
