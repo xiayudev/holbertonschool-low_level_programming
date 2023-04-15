@@ -50,13 +50,13 @@ int check_node(hash_node_t **node, const char *key, const char *value)
 	new_node = malloc(sizeof(hash_node_t));
 	if (!new_node)
 		return (0);
-	new_node->key = malloc(sizeof(char *) * (_strlen(key) + 1));
+	new_node->key = malloc(sizeof(char) * (_strlen(key) + 1));
 	if (!new_node->key)
 	{
 		free(new_node);
 		return (0);
 	}
-	new_node->value = malloc(sizeof(char *) * (_strlen(value) + 1));
+	new_node->value = malloc(sizeof(char) * (_strlen(value) + 1));
 	if (!new_node->value)
 	{
 		free(new_node->key);
@@ -92,18 +92,18 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 
 	index = key_index((const unsigned char *)key, ht->size);
 
-	if (!ht->array[index])
+	if (ht->array[index] == NULL)
 	{
 		new_node = malloc(sizeof(hash_node_t));
 		if (!new_node)
 			return (0);
-		new_node->key = malloc(sizeof(char *) * (_strlen(key) + 1));
+		new_node->key = malloc(sizeof(char) * (_strlen(key) + 1));
 		if (!new_node->key)
 		{
 			free(new_node);
 			return (0);
 		}
-		new_node->value = malloc(sizeof(char *) * (_strlen(value) + 1));
+		new_node->value = malloc(sizeof(char) * (_strlen(value) + 1));
 		if (!new_node->value)
 		{
 			free(new_node->key);

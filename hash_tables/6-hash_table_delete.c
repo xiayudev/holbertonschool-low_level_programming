@@ -3,7 +3,7 @@
 #include "hash_tables.h"
 
 /**
- * hash_table_print - function to delete
+ * hash_table_delete - function to delete
  * @ht: The hash table
  *
  * Delete a hash table
